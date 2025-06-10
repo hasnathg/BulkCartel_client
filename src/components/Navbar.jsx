@@ -1,7 +1,8 @@
-import { useContext } from "react";
-import { AuthContext } from "../providers/AuthProvider";
 import { Link, NavLink } from "react-router";
 import { FaShoppingCart } from "react-icons/fa";
+import AuthContext from "../context/AuthContext";
+import { useContext } from "react";
+import logo from "../assets/logo1.JPG"
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -9,7 +10,7 @@ const Navbar = () => {
   const navLinks = (
     <>
       <li><NavLink to="/">Home</NavLink></li>
-      <li><NavLink to="/categories">Categories</NavLink></li>
+      <li><NavLink to="/category">Categories</NavLink></li>
       <li><NavLink to="/all-products">All Products</NavLink></li>
       <li><NavLink to="/add-product">Add Product</NavLink></li>
       <li><NavLink to="/my-product">My Product</NavLink></li>
@@ -19,9 +20,16 @@ const Navbar = () => {
 
   return (
     <div className="navbar bg-base-100 shadow-md px-4">
-      <div className="flex-1">
-        <Link to="/" className="text-xl font-bold text-primary">B2B Wholesale</Link>
-      </div>
+        <div className="flex flex-1">
+            <div >
+                <img src={logo} alt="logo" style={{ width: '220px', borderRadius: '8px' }}   />
+            </div>
+
+         {/* <div >
+        <Link to="/" className="text-xl font-bold text-primary">Bulk Cartel</Link>
+      </div> */}
+        </div>
+     
       <div className="hidden md:flex">
         <ul className="menu menu-horizontal px-1 gap-3">{navLinks}</ul>
       </div>
