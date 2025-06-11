@@ -27,7 +27,7 @@ const router = createBrowserRouter([
         {path: "/register",
             element: <Register></Register>
         },
-        {path: "/category",
+        {path: "/category/:name",
             element: <CategoryProducts></CategoryProducts>
         },
         {path: "/all-products",

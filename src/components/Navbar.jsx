@@ -1,16 +1,37 @@
 import { Link, NavLink } from "react-router";
 import { FaShoppingCart } from "react-icons/fa";
 import AuthContext from "../context/AuthContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import logo from "../assets/logo1.JPG"
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
 
+  const [categories, setCategories] = useState([]);
+
+useEffect(() => {
+  fetch("http://localhost:3000/categories")
+    .then((res) => res.json())
+    .then((data) => setCategories(data));
+}, []);
+
   const navLinks = (
     <>
       <li><NavLink to="/">Home</NavLink></li>
-      <li><NavLink to="/category">Categories</NavLink></li>
+      {/* <li><NavLink to="/category">Categories</NavLink></li> */}
+      <li tabIndex={0}>
+  <details>
+    <summary>Categories</summary>
+    <ul className="p-2 bg-base-100 z-50">
+      {categories.map((cat) => (
+        <li key={cat.name}>
+          <NavLink to={`/category/${cat.name}`}>{cat.name}</NavLink>
+        </li>
+      ))}
+    </ul>
+  </details>
+</li>
+
       <li><NavLink to="/all-products">All Products</NavLink></li>
       <li><NavLink to="/add-product">Add Product</NavLink></li>
       <li><NavLink to="/my-product">My Product</NavLink></li>
@@ -25,9 +46,6 @@ const Navbar = () => {
                 <img src={logo} alt="logo" style={{ width: '220px', borderRadius: '8px' }}   />
             </div>
 
-         {/* <div >
-        <Link to="/" className="text-xl font-bold text-primary">Bulk Cartel</Link>
-      </div> */}
         </div>
      
       <div className="hidden md:flex">
