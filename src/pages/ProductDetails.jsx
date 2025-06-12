@@ -10,10 +10,23 @@ const ProductDetails = () => {
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
 
-  useEffect(() => {
+//   useEffect(() => {
+//     fetch(`http://localhost:3000/products/${id}`)
+//       .then(res => res.json())
+//       .then(data => setProduct(data));
+//   }, [id]);
+useEffect(() => {
+    console.log("Fetching product with ID:", id);
     fetch(`http://localhost:3000/products/${id}`)
-      .then(res => res.json())
-      .then(data => setProduct(data));
+      .then(res => {
+        console.log("Response status:", res.status);
+        return res.json();
+      })
+      .then(data => {
+        console.log("Fetched product data:", data);
+        setProduct(data);
+      })
+      .catch(err => console.error("Error fetching product:", err));
   }, [id]);
 
   const handleBuy = async () => {

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import Rating from "react-rating-stars-component";
 
 const ProductCard = ({product}) => {
+    //  console.log("Product data in ProductCard:", product);
     const navigate = useNavigate();
     return (
         <div className="border rounded-lg shadow-md p-4 bg-white hover:shadow-lg transition">
