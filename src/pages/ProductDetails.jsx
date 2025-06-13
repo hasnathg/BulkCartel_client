@@ -73,11 +73,34 @@ useEffect(() => {
           <h3 className="font-bold text-lg">Buy {product.name}</h3>
           <p>Name: {user.displayName}</p>
           <p>Email: {user.email}</p>
-          <div className="flex items-center gap-2 mt-4">
-            <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="btn">-</button>
-            <span>{quantity}</span>
-            <button onClick={() => setQuantity(quantity + 1)} className="btn">+</button>
+
+          <div className="mt-6">
+          <p className="mb-2 font-semibold">
+            Select Quantity <span className="text-sm text-gray-500">(Available: {product.available_quantity})</span>
+          </p>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setQuantity(Math.max(1, quantity - 1))}
+              className="btn btn-outline btn-sm"
+            >
+              -
+            </button>
+            <span className="text-lg font-medium">{quantity}</span>
+            <button
+              onClick={() => {
+                if (quantity < product.available_quantity) {
+                  setQuantity(quantity + 1);
+                } else {
+                  Swal.fire("Info", "You've reached max available stock", "info");
+                }
+              }}
+              className="btn btn-outline btn-sm"
+            >
+              +
+            </button>
           </div>
+        </div>
+
           <div className="modal-action">
             <form method="dialog">
               <button className="btn">Close</button>
