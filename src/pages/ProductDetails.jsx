@@ -10,24 +10,13 @@ const ProductDetails = () => {
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
 
-//   useEffect(() => {
-//     fetch(`http://localhost:3000/products/${id}`)
-//       .then(res => res.json())
-//       .then(data => setProduct(data));
-//   }, [id]);
-useEffect(() => {
-    console.log("Fetching product with ID:", id);
+  useEffect(() => {
     fetch(`http://localhost:3000/products/${id}`)
-      .then(res => {
-        console.log("Response status:", res.status);
-        return res.json();
-      })
-      .then(data => {
-        console.log("Fetched product data:", data);
-        setProduct(data);
-      })
+      .then(res => res.json())
+      .then(data => setProduct(data))
       .catch(err => console.error("Error fetching product:", err));
   }, [id]);
+
 
   const handleBuy = async () => {
     if (quantity < product.minimum_selling_quantity) {
@@ -44,13 +33,37 @@ useEffect(() => {
     const result = await res.json();
 
     if (result.success) {
-      Swal.fire("Success!", "Purchase completed.", "success");
+      
+      const cartRes = await fetch("http://localhost:3000/cart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userEmail: user.email,
+          productId: product._id,
+          quantity,
+          name: product.name,
+          image: product.image,
+          price: product.price,
+          brand: product.brand,
+          category: product.category,
+          description: product.description
+        }),
+      });
+
+      const cartResult = await cartRes.json();
+
+      if (cartResult.success) {
+        Swal.fire("Success!", "Purchase completed and added to cart.", "success");
+      } else {
+        Swal.fire("Purchase done, but failed to add to cart.", "", "warning");
+      }
     } else {
-      Swal.fire("Error", "Not enough stock or server error.", "error");
+      Swal.fire("Error", result.message || "Not enough stock or server error.", "error");
     }
   };
 
   if (!product) return <p>Loading...</p>;
+
 
   return (
     <div className="max-w-3xl mx-auto mt-10">
