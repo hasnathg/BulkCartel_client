@@ -12,6 +12,7 @@ import PrivateRoute from '../components/PrivateRoute';
 import MyProducts from '../pages/MyProducts';
 import Cart from '../pages/Cart';
 import ProductDetails from '../pages/ProductDetails';
+import UpdateProduct from '../pages/UpdateProduct';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -55,6 +56,14 @@ const router = createBrowserRouter([
             element: <PrivateRoute>
              <ProductDetails></ProductDetails>
             </PrivateRoute>
+        },
+        {path: "/update/:id",
+        element: (
+        <PrivateRoute>
+        <UpdateProduct />
+        </PrivateRoute>
+  ),
+
         },
     ]
 },
