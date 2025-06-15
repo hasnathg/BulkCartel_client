@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import AuthContext from '../context/AuthContext';
+import { Helmet } from 'react-helmet-async';
 
 
 const Login = () => {
@@ -50,6 +51,10 @@ const Login = () => {
   };
 
   return (
+      <>
+      <Helmet>
+        <title>Login | BulkCartel</title>
+      </Helmet>
     <div className='flex justify-center min-h-screen items-center'>
       <div className="card bg-base-100 w-full max-w-sm shadow-2xl py-5">
         <h2 className='font-semibold text-2xl text-center'>Login your account</h2>
@@ -84,6 +89,7 @@ const Login = () => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 

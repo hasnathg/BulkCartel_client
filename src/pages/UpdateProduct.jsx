@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router';
 import Swal from 'sweetalert2';
 
@@ -85,6 +86,10 @@ const UpdateProduct = () => {
   if (loading) return <p>Loading...</p>;
 
     return (
+        <>
+      <Helmet>
+        <title>Update Product | BulkCartel</title>
+      </Helmet>
        <div className="max-w-lg mx-auto mt-10 p-6 bg-white rounded shadow">
       <h2 className="text-2xl font-semibold mb-4">Update Product</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -151,6 +156,7 @@ const UpdateProduct = () => {
         </button>
       </form>
     </div>
+    </>
     );
 };
 

@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../context/AuthContext';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
+import Spinner from '../components/Spinner';
 
 const AddProduct = () => {
-     const { user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [categories, setCategories] = useState([]);
   const [formData, setFormData] = useState({
     image: '',
@@ -16,11 +18,19 @@ const AddProduct = () => {
     available_quantity: '',
     minimum_selling_quantity: '',
   });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch('http://localhost:3000/categories')
       .then(res => res.json())
-      .then(data => setCategories(data));
+      .then(data => {
+        setCategories(data);
+      setLoading(false);
+  })
+   .catch(err => {
+      console.error("Error fetching category:", err);
+      setLoading(false); 
+   });
   }, []);
 
   const handleChange = e => {
@@ -88,9 +98,14 @@ const AddProduct = () => {
       console.error('Error adding product:', error);
     }
   };
+  if (loading) return <Spinner   message="Loading product..." />;
 
 
     return (
+        <>
+      <Helmet>
+        <title>Add Product | BulkCartel</title>
+      </Helmet>
         <div className="max-w-4xl mx-auto p-4">
       <h2 className="text-2xl font-bold mb-4">Add a Product</h2>
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -192,6 +207,7 @@ const AddProduct = () => {
         </div>
       </form>
     </div>
+    </>
     );
 };
 

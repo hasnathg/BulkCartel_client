@@ -3,20 +3,29 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from 'react-router';
 import Swal from "sweetalert2";
 import AuthContext from '../context/AuthContext';
+import { Helmet } from 'react-helmet-async';
+import Spinner from '../components/Spinner';
 
 const ProductDetails = () => {
   const { id } = useParams();
   const { user } = useContext(AuthContext);
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/products/${id}`)
-      .then(res => res.json())
-      .then(data => setProduct(data))
-      .catch(err => console.error("Error fetching product:", err));
-  }, [id]);
-
+  fetch(`http://localhost:3000/products/${id}`)
+    .then(res => res.json())
+    .then(data => {
+      setProduct(data);
+      setLoading(false); 
+    })
+    .catch(err => {
+      console.error("Error fetching product:", err);
+      setLoading(false); 
+    });
+}, [id]);
+if (loading) return <Spinner message="Loading product..." />;
 
   const handleBuy = async () => {
     if (quantity < product.minimum_selling_quantity) {
@@ -62,10 +71,14 @@ const ProductDetails = () => {
     }
   };
 
-  if (!product) return <p>Loading...</p>;
+  if (!product) return <Spinner></Spinner>;
 
 
   return (
+      <>
+      <Helmet>
+        <title>Product Details | BulkCartel</title>
+      </Helmet>
     <div className="max-w-3xl mx-auto mt-10">
       <img src={product.image} className="w-full rounded" />
       <h2 className="text-2xl font-bold my-4">{product.name}</h2>
@@ -123,6 +136,7 @@ const ProductDetails = () => {
         </div>
       </dialog>
     </div>
+    </>
   );
 };
 

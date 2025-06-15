@@ -1,15 +1,26 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../context/AuthContext';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
+import Spinner from '../components/Spinner';
 
 const Cart = () => {
   const { user } = useContext(AuthContext);
   const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(`http://localhost:3000/cart/${user.email}`)
       .then(res => res.json())
-      .then(data => setCartItems(data));
+      .then(data => {
+        setCartItems(data);
+      setLoading(false);
+  })
+  .catch(err => {
+      console.error("Error fetching category:", err);
+      setLoading(false); 
+    });
+
   }, [user]);
 
   const handleRemove = async (item) => {
@@ -35,7 +46,13 @@ const Cart = () => {
     }
   };
 
+   if (loading) return <Spinner   message="Loading product..." />;
+
     return (
+          <>
+      <Helmet>
+        <title>Cart | BulkCartel</title>
+      </Helmet>
        <div className="max-w-4xl mx-auto my-10">
       <h2 className="text-2xl font-semibold mb-6">Purchased Details</h2>
       {cartItems.length === 0
@@ -60,6 +77,7 @@ const Cart = () => {
           </div>
         )}
     </div>
+    </>
     );
 };
 

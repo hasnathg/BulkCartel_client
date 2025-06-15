@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router';
 import { updateProfile } from 'firebase/auth';
 import { toast } from 'react-toastify';
 import AuthContext from '../context/AuthContext';
+import { Helmet } from 'react-helmet-async';
 
 
 const Register = () => {
@@ -58,6 +59,10 @@ const Register = () => {
   };
 
   return (
+      <>
+      <Helmet>
+        <title>Register | BulkCartel</title>
+      </Helmet>
     <div className='flex justify-center min-h-screen items-center'>
       <div className="card bg-base-100 w-full max-w-sm shadow-2xl py-5">
         <h2 className='font-semibold text-2xl text-center'>Register your account</h2>
@@ -85,6 +90,7 @@ const Register = () => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 

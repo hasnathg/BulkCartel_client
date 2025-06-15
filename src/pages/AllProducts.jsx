@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router';
+import Spinner from '../components/Spinner';
 
 const AllProducts = () => {
     const [products,setProducts] = useState([]);
     const [displayedProducts,setDisplayedProducts] = useState([]);
     const[filterActive,setFilterActive] = useState(false);
     const [viewMode, setViewMode] = useState("card");
+    const [loading, setLoading] = useState(true);
 
     useEffect(() =>{
         fetch("http://localhost:3000/products")
@@ -13,6 +16,11 @@ const AllProducts = () => {
         .then(data =>{
             setProducts(data);
             setDisplayedProducts(data);
+            setLoading(false);
+        })
+        .catch(err => {
+        console.error("Error loading products:", err);
+        setLoading(false);
         });
     },[]);
 
@@ -28,9 +36,14 @@ const AllProducts = () => {
   const handleViewChange = (e) => {
     setViewMode(e.target.value);
   };
+  if (loading) return <Spinner  message="Loading all products..." />;
 
 
     return (
+        <>
+      <Helmet>
+        <title>All Products | BulkCartel</title>
+      </Helmet>
         <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
         <h2 className="text-2xl font-bold">All Products</h2>
@@ -121,6 +134,7 @@ const AllProducts = () => {
         </div>
       )}
     </div>
+    </>
     );
 };
 

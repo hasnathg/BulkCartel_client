@@ -1,17 +1,28 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import ProductCard from "./ProductCard";
+import Spinner from "../components/Spinner";
 
 const CategoryProducts = () => {
   const { name } = useParams();
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     document.title = `${name} | BulkCartel`;
     fetch(`http://localhost:3000/products/category/${name}`)
       .then((res) => res.json())
-      .then((data) => setProducts(data));
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+    })
+      .catch(err => {
+      console.error("Error fetching category:", err);
+      setLoading(false); 
+    });
   }, [name]);
+  if (loading) return <Spinner  message="Loading product..." />;
+
 
   return (
    <div className="px-6 py-10">
