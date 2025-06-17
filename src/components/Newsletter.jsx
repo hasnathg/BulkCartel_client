@@ -16,26 +16,34 @@ const Newsletter = () => {
         }
       };
     return (
-        <section
-      className="relative bg-cover bg-center min-h-[400px] text-white flex items-center justify-center"
+    
+    <section
+      className="relative bg-cover bg-center min-h-[550px] sm:min-h-[600px] flex items-center justify-center text-white"
       style={{
-      backgroundImage: `url("https://images.unsplash.com/photo-1556761175-4b46a572b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80")`,
+        backgroundImage:
+          'url("https://images.unsplash.com/photo-1556761175-4b46a572b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80")',
       }}
     >
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+     
+      <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40"></div>
 
-      {/* Content */}
-      <div className="relative max-w-3xl mx-auto px-4 text-center">
-        <Mail className="mx-auto text-green-300 w-10 h-10 mb-4" />
-        <h2 className="text-3xl font-bold mb-3">Join Our Business Community 💼</h2>
-        <p className="mb-6 text-white text-opacity-90">
-          Get monthly news, exclusive offers and updates right to your inbox.
+      <div className="relative max-w-3xl mx-auto px-6 text-center">
+        <Mail className="mx-auto text-green-400 w-10 h-10 mb-4" />
+        <h2 className="text-4xl sm:text-5xl font-bold mb-3 leading-tight">
+          Join Our Business Community
+        </h2>
+        <p className="mb-6 text-white/90 text-lg">
+          Get monthly updates, deals, and industry tips in your inbox.
         </p>
-        <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row justify-center gap-4">
+
+        {/* Form */}
+        <form
+          onSubmit={handleSubscribe}
+          className="flex flex-col sm:flex-row justify-center items-center gap-4"
+        >
           <input
             type="email"
-            className="w-full sm:w-auto px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900"
+            className="w-full sm:w-[280px] px-4 py-3 rounded-md border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900"
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -43,13 +51,17 @@ const Newsletter = () => {
           />
           <button
             type="submit"
-            className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition"
+            className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md transition-all font-medium"
           >
             Subscribe
           </button>
         </form>
+
+        {/* Success Message */}
         {submitted && (
-          <p className="mt-4 text-green-300 font-semibold">Thanks for subscribing! 🌻</p>
+          <p className="mt-4 text-green-300 font-medium">
+            Thanks for subscribing! 🌿
+          </p>
         )}
       </div>
     </section>

@@ -3,36 +3,35 @@ import logo from "../assets/logo.JPG";
 
 const Footer = () => {
   return (
-    <footer className="bg-base-200 text-base-content py-10 px-4 mt-16 border-gray-300">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-5 gap-8">
-
-        <div className="flex flex-col items-start">
-          <img
-            src={logo}
-            alt="Logo"
-            className="w-54 h-auto mb-2"
-          />
-          <p className="text-sm text-gray-500">
-            Bulk Cartel for global wholesale buying and selling.
+  
+    <footer className="bg-gradient-to-tr from-green-50 to-green-100 text-gray-800 py-12 px-6 mt-20 border-t border-gray-300 font-semibold">
+     
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-10 px-4 sm:px-8 md:px-12 lg:px-20 xl:px-28 2xl:px-40">
+        
+       
+        <div>
+          <img src={logo} alt="Logo" className="w-44 mb-4 rounded" />
+          <p className="text-base leading-relaxed text-gray-700">
+            Bulk Cartel is your global partner in wholesale sourcing and distribution.
           </p>
         </div>
 
-       
+        
         <div>
-          <h3 className="text-lg font-semibold mb-2">Quick Links</h3>
-          <ul className="space-y-1">
-            <li><a className="link link-hover" href="/">Home</a></li>
-            <li><a className="link link-hover" href="/all-products">All Products</a></li>
-            <li><a className="link link-hover" href="/add-product">Add Product</a></li>
-            <li><a className="link link-hover" href="/my-product">My Product</a></li>
-            <li><a className="link link-hover" href="/cart">Cart</a></li>
+          <h3 className="text-lg font-semibold mb-4 text-green-900">Quick Links</h3>
+          <ul className="space-y-2 text-base">
+            <li><a className="hover:text-green-600" href="/">Home</a></li>
+            <li><a className="hover:text-green-600" href="/all-products">All Products</a></li>
+            <li><a className="hover:text-green-600" href="/add-product">Add Product</a></li>
+            <li><a className="hover:text-green-600" href="/my-product">My Product</a></li>
+            <li><a className="hover:text-green-600" href="/cart">Cart</a></li>
           </ul>
         </div>
 
-      
+        {/* Categories */}
         <div>
-          <h3 className="text-lg font-semibold mb-2">Categories</h3>
-          <ul className="space-y-1">
+          <h3 className="text-lg font-semibold mb-4 text-green-900">Top Categories</h3>
+          <ul className="space-y-2 text-base text-gray-700">
             <li>Electronics & Gadgets</li>
             <li>Home Appliances</li>
             <li>Fashion & Apparel</li>
@@ -41,27 +40,27 @@ const Footer = () => {
           </ul>
         </div>
 
-       
+        
         <div>
-          <h3 className="text-lg font-semibold mb-2">Contact Us</h3>
-          <p>Email: support@bulcartel.com</p>
-          <p>Phone: +7802320986</p>
+          <h3 className="text-lg font-semibold mb-4 text-green-900">Contact Us</h3>
+          <p className="text-base text-gray-700">📧 support@bulkcartel.com</p>
+          <p className="text-base text-gray-700">📞 +07802320986</p>
         </div>
 
         
         <div>
-          <h3 className="text-lg font-semibold mb-2">Follow Us</h3>
-          <div className="flex gap-4 text-xl">
-            <a href="#" className="hover:text-blue-500"><FaFacebookF /></a>
-            <a href="#" className="hover:text-blue-400"><FaTwitter /></a>
-            <a href="#" className="hover:text-pink-500"><FaInstagram /></a>
-            <a href="#" className="hover:text-blue-700"><FaLinkedin /></a>
+          <h3 className="text-lg font-semibold mb-4 text-green-900">Follow Us</h3>
+          <div className="flex gap-4 text-2xl text-gray-600">
+            <a href="#" className="hover:text-blue-600"><FaFacebookF /></a>
+            <a href="#" className="hover:text-sky-500"><FaTwitter /></a>
+            <a href="#" className="hover:text-pink-600"><FaInstagram /></a>
+            <a href="#" className="hover:text-blue-800"><FaLinkedin /></a>
           </div>
         </div>
-
       </div>
 
-      <div className="mt-10 text-center text-sm text-gray-500">
+     
+      <div className="mt-10 border-t pt-6 text-center text-sm text-gray-500 px-4">
         © {new Date().getFullYear()} Bulk Cartel. All rights reserved.
       </div>
     </footer>

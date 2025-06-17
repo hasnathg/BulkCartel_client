@@ -101,50 +101,120 @@ const AddProduct = () => {
       <Helmet>
         <title>Add Product | BulkCartel</title>
       </Helmet>
-     <div className="max-w-4xl mx-auto p-6">
-        <h2 className="text-2xl font-bold mb-4">Add a Product</h2>
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Inputs */}
-          <input name="name" placeholder="Name" value={formData.name}
-            onChange={handleChange} required className="input input-bordered" />
-          <input name="image" placeholder="Image URL" value={formData.image}
-            onChange={handleChange} required className="input input-bordered" />
-          <input name="brand" placeholder="Brand" value={formData.brand}
-            onChange={handleChange} required className="input input-bordered" />
-          <select name="category" value={formData.category} onChange={handleChange}
-            required className="select select-bordered">
+      
+      <section className="max-w-5xl mx-auto p-6 mt-8 bg-white shadow-md rounded-lg">
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Add New Product</h2>
+
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <input
+            type="text"
+            name="name"
+            placeholder="Product Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="input input-bordered w-full"
+          />
+
+          <input
+            type="text"
+            name="image"
+            placeholder="Image URL"
+            value={formData.image}
+            onChange={handleChange}
+            required
+            className="input input-bordered w-full"
+          />
+
+          <input
+            type="text"
+            name="brand"
+            placeholder="Brand"
+            value={formData.brand}
+            onChange={handleChange}
+            required
+            className="input input-bordered w-full"
+          />
+
+          <select
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            required
+            className="select select-bordered w-full"
+          >
             <option value="">Select Category</option>
             {categories.map(c => (
-              <option key={c._id} value={c.name}>{c.name}</option>
+              <option key={c._id} value={c.name}>
+                {c.name}
+              </option>
             ))}
           </select>
-          <input name="available_quantity" type="number" placeholder="Stock Quantity"
-            value={formData.available_quantity} onChange={handleChange}
-            required className="input input-bordered" />
-          <input name="minimum_selling_quantity" type="number" placeholder="Min Order Qty"
-            value={formData.minimum_selling_quantity} onChange={handleChange}
-            required className="input input-bordered" />
-          <input name="price" type="number" step="0.01" placeholder="Price"
-            value={formData.price} onChange={handleChange}
-            required className="input input-bordered" />
-          <input name="rating" type="number" min="1" max="5" step="0.1"
-            placeholder="Rating" value={formData.rating}
-            onChange={handleChange} required className="input input-bordered" />
-          <textarea name="description" placeholder="Description"
-            value={formData.description} onChange={handleChange}
-            required className="textarea textarea-bordered md:col-span-2" />
 
-          {/* Submit */}
-          <div className="md:col-span-2 flex flex-col gap-2">
-            <p className="text-sm text-gray-600">
-              * Wholesale platform: Minimum quantity applies.
+          <input
+            type="number"
+            name="available_quantity"
+            placeholder="Available Stock Quantity"
+            value={formData.available_quantity}
+            onChange={handleChange}
+            required
+            className="input input-bordered w-full"
+          />
+
+          <input
+            type="number"
+            name="minimum_selling_quantity"
+            placeholder="Minimum Order Quantity"
+            value={formData.minimum_selling_quantity}
+            onChange={handleChange}
+            required
+            className="input input-bordered w-full"
+          />
+
+          <input
+            type="number"
+            step="0.01"
+            name="price"
+            placeholder="Price"
+            value={formData.price}
+            onChange={handleChange}
+            required
+            className="input input-bordered w-full"
+          />
+
+          <input
+            type="number"
+            name="rating"
+            placeholder="Rating (1-5)"
+            min="1"
+            max="5"
+            step="0.1"
+            value={formData.rating}
+            onChange={handleChange}
+            required
+            className="input input-bordered w-full"
+          />
+
+          <textarea
+            name="description"
+            placeholder="Product Description"
+            value={formData.description}
+            onChange={handleChange}
+            required
+            className="textarea textarea-bordered md:col-span-2"
+            rows="4"
+          ></textarea>
+
+          <div className="md:col-span-2 flex flex-col gap-2 mt-4">
+            <p className="text-sm text-gray-500">
+              * Note: Minimum selling quantity applies on all wholesale listings.
             </p>
-            <button type="submit" className="btn btn-primary w-full">
+            <button type="submit" className="w-full btn bg-gradient-to-r from-green-400 to-green-500 text-white hover:from-green-600 hover:to-green-800 transition">
               Add Product
             </button>
           </div>
         </form>
-      </div>
+      </section>
     </>
   );
 };

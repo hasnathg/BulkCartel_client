@@ -79,63 +79,80 @@ if (loading) return <Spinner message="Loading product..." />;
       <Helmet>
         <title>Product Details | BulkCartel</title>
       </Helmet>
-    <div className="max-w-3xl mx-auto mt-10">
-      <img src={product.image} className="w-full rounded" />
-      <h2 className="text-2xl font-bold my-4">{product.name}</h2>
-      <p>{product.description}</p>
-      <p>Price: ${product.price}</p>
-      <p>Minimum Quantity: {product.minimum_selling_quantity}</p>
+    <div className="max-w-5xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-10 items-start">
+        <img
+          src={product.image}
+          alt={product.name}
+          className="w-full rounded-lg shadow-sm object-cover"
+        />
 
-      <button
-        onClick={() => document.getElementById("buy_modal").showModal()}
-        className="btn btn-primary mt-5"
-      >
-        Buy
-      </button>
+        <div>
+          <h1 className="text-3xl font-bold text-gray-800 mb-4">{product.name}</h1>
+          <p className="text-gray-600 mb-3">{product.description}</p>
+
+          <ul className="space-y-2 text-sm text-gray-700 mb-6">
+            <li><strong>Brand:</strong> {product.brand}</li>
+            <li><strong>Category:</strong> {product.category}</li>
+            <li><strong>Min Order Qty:</strong> {product.minimum_selling_quantity}</li>
+            <li><strong>In Stock:</strong> {product.available_quantity}</li>
+          </ul>
+
+          <div className="text-2xl font-bold text-green-600 mb-6">${product.price}</div>
+
+          <button
+            onClick={() => document.getElementById("buy_modal").showModal()}
+            className="px-6 py-2 bg-gray-800 text-white rounded hover:bg-black transition"
+          >
+            Buy Now
+          </button>
+        </div>
+      </div>
 
       {/* Modal */}
       <dialog id="buy_modal" className="modal">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Buy {product.name}</h3>
-          <p>Name: {user.displayName}</p>
-          <p>Email: {user.email}</p>
+        <div className="modal-box max-w-md">
+          <h3 className="text-xl font-semibold mb-2">Confirm Purchase</h3>
 
-          <div className="mt-6">
-          <p className="mb-2 font-semibold">
-            Select Quantity <span className="text-sm text-gray-500">(Available: {product.available_quantity})</span>
-          </p>
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => setQuantity(Math.max(1, quantity - 1))}
-              className="btn btn-outline btn-sm"
-            >
-              -
-            </button>
-            <span className="text-lg font-medium">{quantity}</span>
-            <button
-              onClick={() => {
-                if (quantity < product.available_quantity) {
-                  setQuantity(quantity + 1);
-                } else {
-                  Swal.fire("Info", "You've reached max available stock", "info");
-                }
-              }}
-              className="btn btn-outline btn-sm"
-            >
-              +
-            </button>
+          <p className="mb-1"><strong>Name:</strong> {user.displayName}</p>
+          <p className="mb-3"><strong>Email:</strong> {user.email}</p>
+
+          <div className="mt-4">
+            <label className="block text-sm font-medium mb-1">
+              Select Quantity
+              <span className="text-xs text-gray-500 ml-2">(Available: {product.available_quantity})</span>
+            </label>
+            <div className="flex items-center gap-3 mt-1">
+              <button
+                onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                className="btn btn-outline btn-sm"
+              >
+                −
+              </button>
+              <span className="text-lg font-medium">{quantity}</span>
+              <button
+                onClick={() => {
+                  if (quantity < product.available_quantity) {
+                    setQuantity(quantity + 1);
+                  } else {
+                    Swal.fire("Info", "You've reached max available stock", "info");
+                  }
+                }}
+                className="btn btn-outline btn-sm"
+              >
+                +
+              </button>
+            </div>
           </div>
-        </div>
 
-          <div className="modal-action">
+          <div className="modal-action mt-6">
             <form method="dialog">
-              <button className="btn">Close</button>
+              <button className="btn">Cancel</button>
             </form>
-            <button onClick={handleBuy} className="btn btn-success">Confirm Purchase</button>
+            <button onClick={handleBuy} className="btn btn-success">Confirm</button>
           </div>
         </div>
       </dialog>
-    </div>
+    
     </>
   );
 };
