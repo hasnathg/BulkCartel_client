@@ -80,7 +80,7 @@ const AllProducts = () => {
               </figure>
               <div className="card-body">
                 <h2 className="card-title">{product.name}</h2>
-                <p>Brand: {product.brand_name}</p>
+                <p>Brand: {product.brand}</p>
                 <p>Category: {product.category}</p>
                 <p>Rating: {product.rating}</p>
                 <p>Available: {product.available_quantity}</p>

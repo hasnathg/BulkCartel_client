@@ -1,11 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 const partners = [
-  { name: 'Samsung', logo: 'https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg' },
-  { name: 'Bosch', logo: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Bosch_logo.svg' },
-  { name: 'LG', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/59/LG_logo_(2015).svg' },
-  { name: 'Sony', logo: 'https://upload.wikimedia.org/wikipedia/commons/2/2e/Sony_logo.svg' },
-  { name: 'Philips', logo: 'https://upload.wikimedia.org/wikipedia/commons/6/6a/Philips_logo.svg' },
+  { name: 'Samsung', logo: 'https://i.ibb.co/0V2jrFrD/samsung-JPG.jpg' },
+  { name: 'Bosch', logo: 'https://i.ibb.co/nqVgSyPg/bosch.jpg' },
+  { name: 'LG', logo: 'https://i.ibb.co/Ng8gj69C/LG.jpg' },
+  { name: 'Sony', logo: 'https://i.ibb.co/B5YkJVTJ/sony.jpg' },
+  { name: 'Philips', logo: 'https://i.ibb.co/N6R4yMsY/phillips.jpg' },
 ];
 
 const containerVariants = {
@@ -32,7 +32,7 @@ const TrustedPartners = () => {
         {partners.map(({ name, logo }, index) => (
           <motion.div
             key={index}
-            className="w-28 h-16 flex items-center justify-center"
+            className="w-36 h-36 flex items-center justify-center"
             variants={itemVariants}
             whileHover={{ scale: 1.1 }}
           >

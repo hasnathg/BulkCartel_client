@@ -9,17 +9,20 @@ import { Link } from 'react-router';
 const slides = [
   {
     
-    image: 'https://images.unsplash.com/photo-1562157873-818bc0726f68?q=80&w=1527&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    // image: 'https://images.unsplash.com/photo-1562157873-818bc0726f68?q=80&w=1527&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    image: 'https://i.ibb.co/GfDBpCbq/slider-1.jpg',
     title: 'Summer sale- 30% off ',
     button: 'Join Now'
   },
   {
-    image: 'https://images.unsplash.com/photo-1570222094114-d054a817e56b?q=80&w=1505&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    // image: 'https://images.unsplash.com/photo-1570222094114-d054a817e56b?q=80&w=1505&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    image: 'https://i.ibb.co/V0yRvtVH/slider-2.jpg',
     title: 'Best wholesale product of this year',
     button: 'Get Started'
   },
   {
-    image: 'https://images.unsplash.com/photo-1593344484962-796055d4a3a4?q=80&w=1430&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    // image: 'https://images.unsplash.com/photo-1593344484962-796055d4a3a4?q=80&w=1430&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    image: 'https://i.ibb.co/QFMzdJ3D/slider-3.jpg',
     title: 'Best gadgets with lowest price',
     button: 'Explore more'
   },

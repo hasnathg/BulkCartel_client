@@ -10,7 +10,7 @@ const NotFound = () => {
       </Helmet>
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-6 text-center">
         <img 
-          src="https://i.ibb.co/zPw3XPS/bulkcartel-404.png" // You can upload your own 404 graphic and replace this link
+          src="https://i.ibb.co/0jsqVNcp/404.jpg" 
           alt="Not Found" 
           className="w-80 h-auto mb-6"
         />

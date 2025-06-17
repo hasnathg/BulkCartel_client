@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import logo from "../assets/logo1.JPG"
 
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
 
   const [categories, setCategories] = useState([]);
 
@@ -61,7 +61,7 @@ useEffect(() => {
             </label>
             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 bg-base-100 rounded-box w-52">
               <li><p className="text-sm text-center">{user.displayName}</p></li>
-              <li><button onClick={logOut}>Logout</button></li>
+              <li><button onClick={logout}>Logout</button></li>
             </ul>
           </div>
         ) : (

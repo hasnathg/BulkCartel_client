@@ -37,7 +37,7 @@ const itemVariants = {
 const HowItWorks = () => {
     return (
         <section className="max-w-6xl mx-auto px-4 py-16">
-      <h2 className="text-3xl font-bold mb-8 text-center">How It Works</h2>
+      <h2 className="text-3xl font-bold mb-8 text-center text-green-950">How It Works</h2>
       <motion.div
         className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8"
         variants={containerVariants}
@@ -48,7 +48,7 @@ const HowItWorks = () => {
         {steps.map(({ icon, title, description }, index) => (
           <motion.div
             key={index}
-            className="bg-white rounded-lg shadow-md p-6 text-center"
+            className="bg-white rounded-lg shadow-md p-12 text-center"
             variants={itemVariants}
             whileHover={{ scale: 1.05 }}
           >
