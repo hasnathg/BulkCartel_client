@@ -15,6 +15,8 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const from = location.state?.from?.pathname || '/';
+
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -28,10 +30,10 @@ const Login = () => {
     }
 
     signIn(email, password)
-      .then((result) => {
+      .then(() => {
         setError('');
         toast.success("Logged in successfully");
-        navigate(location.state || '/');
+        navigate(from, { replace: true });
       })
       .catch(() => {
         setError("Invalid email or password");
@@ -43,7 +45,7 @@ const Login = () => {
     googleLogIn()
       .then(() => {
         toast.success("Logged in with Google!");
-        navigate(location.state || '/');
+        navigate(from, { replace: true });
       })
       .catch(() => {
         toast.error("Google Sign-In failed");

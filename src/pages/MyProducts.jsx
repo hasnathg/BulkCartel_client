@@ -6,14 +6,19 @@ import Spinner from '../components/Spinner';
 import { useNavigate } from 'react-router';
 
 const MyProducts = () => {
-  const { user } = useContext(AuthContext);
+  const { user, token } = useContext(AuthContext);
   const [prods, setProds] = useState([]);
   const [loading, setLoading] = useState(true);
   const nav = useNavigate();
 
   useEffect(() => {
     document.title = 'My Products | BulkCartel';
-    fetch(`https://bulk-cartel-server.vercel.app/products?email=${user.email}`)
+    
+    fetch(`https://bulk-cartel-server.vercel.app/products?email=${user.email}`, {
+  headers: {
+    Authorization: `Bearer ${token}`
+  }
+})
       .then(res => res.json())
       .then(data => {
         setProds(data);
@@ -33,7 +38,12 @@ const MyProducts = () => {
     });
     if (!ok.isConfirmed) return;
 
-    await fetch(`https://bulk-cartel-server.vercel.app/products/${id}`, { method: 'DELETE' });
+    await fetch(`https://bulk-cartel-server.vercel.app/products/${id}`, {
+  method: 'DELETE',
+  headers: {
+    Authorization: `Bearer ${token}`
+  }
+});
     setProds(prev => prev.filter(p => p._id !== id));
     Swal.fire('Deleted', '', 'success');
   };

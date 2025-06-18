@@ -11,6 +11,7 @@ const AddProduct = () => {
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { token } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
     image: '',
@@ -57,11 +58,15 @@ const AddProduct = () => {
     };
 
     try {
+      const token = await user.getIdToken();
       const res = await fetch('https://bulk-cartel-server.vercel.app/products', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newProduct),
-      });
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`, // ✅ JWT sent
+  },
+  body: JSON.stringify(newProduct),
+});
 
       const data = await res.json();
 

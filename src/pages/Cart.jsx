@@ -5,48 +5,71 @@ import { Helmet } from 'react-helmet-async';
 import Spinner from '../components/Spinner';
 
 const Cart = () => {
-  const { user } = useContext(AuthContext);
+  const { user,token } = useContext(AuthContext);
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`https://bulk-cartel-server.vercel.app/cart/${user.email}`)
-      .then(res => res.json())
-      .then(data => {
-        setCartItems(data);
+  const fetchCart = async () => {
+    try {
+      const res = await fetch(`https://bulk-cartel-server.vercel.app/cart/${user.email}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await res.json();
+      setCartItems(data);
+    } catch (err) {
+      console.error("Error fetching cart:", err);
+    } finally {
       setLoading(false);
-  })
-  .catch(err => {
-      console.error("Error fetching category:", err);
-      setLoading(false); 
-    });
+    }
+  };
 
-  }, [user]);
+  if (user && token) fetchCart();
+}, [user, token]);
 
+  // Remove from cart
   const handleRemove = async (item) => {
-    const confirm = await Swal.fire({
-      title: 'Cancel Purchase?',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, cancel',
-    });
-    if (!confirm.isConfirmed) return;
+  const confirm = await Swal.fire({
+    title: 'Cancel Purchase?',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, cancel',
+  });
+  if (!confirm.isConfirmed) return;
 
-    const res = await fetch(`https://bulk-cartel-server.vercel.app/cart/${item._id}`, { method: 'DELETE' });
+  try {
+    const res = await fetch(`https://bulk-cartel-server.vercel.app/cart/${item._id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
     const result = await res.json();
     if (result.success) {
       setCartItems(prev => prev.filter(i => i._id !== item._id));
+
       await fetch(`https://bulk-cartel-server.vercel.app/products/decrement/${item.productId}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ quantity: -item.quantity })
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ quantity: -item.quantity }),
       });
+
       Swal.fire('Removed', 'Purchase cancelled', 'success');
     } else {
       Swal.fire('Error', 'Failed to cancel', 'error');
     }
-  };
-
-   if (loading) return <Spinner   message="Loading product..." />;
+  } catch (err) {
+    console.error(err);
+    Swal.fire('Error', 'Something went wrong', 'error');
+  }
+};
+  if (loading) return <Spinner message="Loading product..." />;
 
     return (
           <>

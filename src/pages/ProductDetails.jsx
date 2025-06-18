@@ -8,23 +8,29 @@ import Spinner from '../components/Spinner';
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const { user } = useContext(AuthContext);
+  const { user,token } = useContext(AuthContext);
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-  fetch(`https://bulk-cartel-server.vercel.app/products/${id}`)
+  if (!token) return; // wait until token is available
+
+  fetch(`https://bulk-cartel-server.vercel.app/products/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
     .then(res => res.json())
     .then(data => {
       setProduct(data);
       setLoading(false); 
     })
-    .catch(err => {
-      console.error("Error fetching product:", err);
-      setLoading(false); 
+    .catch(error => {
+      console.error("Error fetching product:", error);
+      setLoading(false);
     });
-}, [id]);
+}, [id, token]);
 if (loading) return <Spinner message="Loading product..." />;
 
   const handleBuy = async () => {
@@ -34,19 +40,25 @@ if (loading) return <Spinner message="Loading product..." />;
     }
 
     const res = await fetch(`https://bulk-cartel-server.vercel.app/products/decrement/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ quantity }),
-    });
+  method: "PATCH",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`
+  },
+  body: JSON.stringify({ quantity }),
+});
 
     const result = await res.json();
 
     if (result.success) {
       
       const cartRes = await fetch("https://bulk-cartel-server.vercel.app/cart", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`
+  },
+  body: JSON.stringify({
           userEmail: user.email,
           productId: product._id,
           quantity,

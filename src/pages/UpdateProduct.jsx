@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router';
 import Swal from 'sweetalert2';
+import AuthContext from '../context/AuthContext';
 
 const UpdateProduct = () => {
     const { id } = useParams();
   const navigate = useNavigate();
+
+  const { token } = useContext(AuthContext);
 
   const [form, setForm] = useState({
     image: '',
@@ -21,27 +24,34 @@ const UpdateProduct = () => {
 
   //Fetch current product info
   useEffect(() => {
-    fetch(`https://bulk-cartel-server.vercel.app/products/${id}`)
-      .then(res => res.json())
-      .then(data => {
-        setForm({
-          image: data.image || '',
-          name: data.name || '',
-          brand: data.brand || '',
-          category: data.category || '',
-          rating: data.rating?.toString() || '',
-          description: data.description || '',
-          available_quantity: data.available_quantity?.toString() || '',
-          minimum_selling_quantity: data.minimum_selling_quantity?.toString() || ''
-        });
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error(err);
-        Swal.fire('Error', 'Unable to fetch product details', 'error');
-        setLoading(false);
+  if (!token) return; // Don't fetch until token is available
+
+  fetch(`https://bulk-cartel-server.vercel.app/products/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then(res => res.json())
+    .then(data => {
+      setForm({
+        image: data.image || '',
+        name: data.name || '',
+        brand: data.brand || '',
+        category: data.category || '',
+        rating: data.rating?.toString() || '',
+        description: data.description || '',
+        available_quantity: data.available_quantity?.toString() || '',
+        minimum_selling_quantity: data.minimum_selling_quantity?.toString() || ''
       });
-  }, [id]);
+      setLoading(false);
+    })
+    .catch(err => {
+      console.error(err);
+      Swal.fire('Error', 'Unable to fetch product details', 'error');
+      setLoading(false);
+    });
+}, [id, token]);
+  
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -63,10 +73,13 @@ const UpdateProduct = () => {
     };
 
     fetch(`https://bulk-cartel-server.vercel.app/products/update/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    })
+  method: 'PATCH',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`
+  },
+  body: JSON.stringify(payload)
+})
       .then(res => res.json())
       .then(result => {
         if (result.success) {

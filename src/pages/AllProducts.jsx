@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router';
 import Spinner from '../components/Spinner';
+import AuthContext from '../context/AuthContext';
 
 const AllProducts = () => {
     const [products,setProducts] = useState([]);
@@ -9,20 +10,34 @@ const AllProducts = () => {
     const[filterActive,setFilterActive] = useState(false);
     const [viewMode, setViewMode] = useState("card");
     const [loading, setLoading] = useState(true);
+    const {token} = useContext(AuthContext);
 
-    useEffect(() =>{
-        fetch("https://bulk-cartel-server.vercel.app/products")
-        .then(res => res.json())
-        .then(data =>{
-            setProducts(data);
-            setDisplayedProducts(data);
-            setLoading(false);
-        })
-        .catch(err => {
-        console.error("Error loading products:", err);
-        setLoading(false);
-        });
-    },[]);
+    useEffect(() => {
+  const token = localStorage.getItem('bulkCartelToken');
+
+  fetch("https://bulk-cartel-server.vercel.app/products", {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then(res => res.json())
+    .then(data => {
+      // Make sure data is an array before setting
+      if (Array.isArray(data)) {
+        setProducts(data);
+        setDisplayedProducts(data);
+      } else {
+        console.error("Unexpected data:", data);
+        setProducts([]);
+        setDisplayedProducts([]);
+      }
+      setLoading(false);
+    })
+    .catch(err => {
+      console.error("Error loading products:", err);
+      setLoading(false);
+    });
+}, []);
 
     const handleFilterToggle = () => {
     const filtered = filterActive
@@ -117,7 +132,7 @@ const AllProducts = () => {
                     <img src={product.image} className="w-16 h-16 object-cover rounded" />
                   </td>
                   <td>{product.name}</td>
-                  <td>{product.brand_name}</td>
+                  <td>{product.brand}</td>
                   <td>{product.category}</td>
                   <td>{product.rating}</td>
                   <td>{product.available_quantity}</td>
