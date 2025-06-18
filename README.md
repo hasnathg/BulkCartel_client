@@ -1,12 +1,19 @@
-# React + Vite
+# B2B Wholesale Platform
+**Live Site:**  https://bulkcartel-client.web.app
+**Server Repo:**  https://github.com/Programming-Hero-Web-Course4/b11a11-server-side-hasnathg 
+**Client Repo:** https://github.com/Programming-Hero-Web-Course4/b11a11-client-side-hasnathg
+## 🚀 Overview
+A B2B marketplace connecting bulk product suppliers with resellers and buyers. The platform supports product listing, secure checkout, cart, JWT auth, and more.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## ✨ Key Features
 
-Currently, two official plugins are available:
+- Email/Password + Google Auth via Firebase- JWT-secured backend APIs- Add, update, and view wholesale products- Cart functionality with live stock tracking
+- Filter products by category & toggle views- Responsive design with TailwindCSS & DaisyUI- Framer Motion animations- MongoDB Atlas for storage- Vercel for backend deployment
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📦 Dependencies
+- React - React Router DOM - Firebase- Express- MongoDB (native driver)- Framer Motion- React Rating Stars- SweetAlert2 / React Hot Toast
 
-## Expanding the ESLint configuration
+## 🛠️ Deployment
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Client: Firebase Hosting
+- Server: Vercel Serverless Function
