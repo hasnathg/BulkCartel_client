@@ -27,7 +27,7 @@ const AddProduct = () => {
 
   useEffect(() => {
     document.title = 'Add Product | BulkCartel';
-    fetch('http://localhost:3000/categories')
+    fetch('https://bulk-cartel-server.vercel.app/categories')
       .then(res => res.json())
       .then(data => {
         setCategories(data);
@@ -57,7 +57,7 @@ const AddProduct = () => {
     };
 
     try {
-      const res = await fetch('http://localhost:3000/products', {
+      const res = await fetch('https://bulk-cartel-server.vercel.app/products', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newProduct),

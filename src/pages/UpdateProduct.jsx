@@ -21,7 +21,7 @@ const UpdateProduct = () => {
 
   //Fetch current product info
   useEffect(() => {
-    fetch(`http://localhost:3000/products/${id}`)
+    fetch(`https://bulk-cartel-server.vercel.app/products/${id}`)
       .then(res => res.json())
       .then(data => {
         setForm({
@@ -62,7 +62,7 @@ const UpdateProduct = () => {
       minimum_selling_quantity: parseInt(form.minimum_selling_quantity, 10)
     };
 
-    fetch(`http://localhost:3000/products/update/${id}`, {
+    fetch(`https://bulk-cartel-server.vercel.app/products/update/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)

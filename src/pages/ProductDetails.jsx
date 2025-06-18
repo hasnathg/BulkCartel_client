@@ -14,7 +14,7 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-  fetch(`http://localhost:3000/products/${id}`)
+  fetch(`https://bulk-cartel-server.vercel.app/products/${id}`)
     .then(res => res.json())
     .then(data => {
       setProduct(data);
@@ -33,7 +33,7 @@ if (loading) return <Spinner message="Loading product..." />;
       return;
     }
 
-    const res = await fetch(`http://localhost:3000/products/decrement/${id}`, {
+    const res = await fetch(`https://bulk-cartel-server.vercel.app/products/decrement/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ quantity }),
@@ -43,7 +43,7 @@ if (loading) return <Spinner message="Loading product..." />;
 
     if (result.success) {
       
-      const cartRes = await fetch("http://localhost:3000/cart", {
+      const cartRes = await fetch("https://bulk-cartel-server.vercel.app/cart", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -55,7 +55,8 @@ if (loading) return <Spinner message="Loading product..." />;
           price: product.price,
           brand: product.brand,
           category: product.category,
-          description: product.description
+          description: product.description,
+          minimum_selling_quantity: product.minimum_selling_quantity,
         }),
       });
 

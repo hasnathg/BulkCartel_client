@@ -10,7 +10,7 @@ const CategoryProducts = () => {
 
   useEffect(() => {
     document.title = `${name} | BulkCartel`;
-    fetch(`http://localhost:3000/products/category/${name}`)
+    fetch(`https://bulk-cartel-server.vercel.app/products/category/${name}`)
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);

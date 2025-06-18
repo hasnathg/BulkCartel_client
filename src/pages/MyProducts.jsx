@@ -13,7 +13,7 @@ const MyProducts = () => {
 
   useEffect(() => {
     document.title = 'My Products | BulkCartel';
-    fetch(`http://localhost:3000/products?email=${user.email}`)
+    fetch(`https://bulk-cartel-server.vercel.app/products?email=${user.email}`)
       .then(res => res.json())
       .then(data => {
         setProds(data);
@@ -33,7 +33,7 @@ const MyProducts = () => {
     });
     if (!ok.isConfirmed) return;
 
-    await fetch(`http://localhost:3000/products/${id}`, { method: 'DELETE' });
+    await fetch(`https://bulk-cartel-server.vercel.app/products/${id}`, { method: 'DELETE' });
     setProds(prev => prev.filter(p => p._id !== id));
     Swal.fire('Deleted', '', 'success');
   };

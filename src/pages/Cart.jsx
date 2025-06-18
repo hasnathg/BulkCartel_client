@@ -10,7 +10,7 @@ const Cart = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/cart/${user.email}`)
+    fetch(`https://bulk-cartel-server.vercel.app/cart/${user.email}`)
       .then(res => res.json())
       .then(data => {
         setCartItems(data);
@@ -31,11 +31,11 @@ const Cart = () => {
     });
     if (!confirm.isConfirmed) return;
 
-    const res = await fetch(`http://localhost:3000/cart/${item._id}`, { method: 'DELETE' });
+    const res = await fetch(`https://bulk-cartel-server.vercel.app/cart/${item._id}`, { method: 'DELETE' });
     const result = await res.json();
     if (result.success) {
       setCartItems(prev => prev.filter(i => i._id !== item._id));
-      await fetch(`http://localhost:3000/products/decrement/${item.productId}`, {
+      await fetch(`https://bulk-cartel-server.vercel.app/products/decrement/${item.productId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ quantity: -item.quantity })
