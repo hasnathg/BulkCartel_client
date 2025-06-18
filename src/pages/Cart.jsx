@@ -5,71 +5,69 @@ import { Helmet } from 'react-helmet-async';
 import Spinner from '../components/Spinner';
 
 const Cart = () => {
-  const { user,token } = useContext(AuthContext);
+  const { user, token } = useContext(AuthContext);
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-  const fetchCart = async () => {
-    try {
-      const res = await fetch(`https://bulk-cartel-server.vercel.app/cart/${user.email}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+    const fetchCart = async () => {
+      try {
+        const res = await fetch(`https://bulk-cartel-server.vercel.app/cart/${user.email}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        setCartItems(Array.isArray(data) ? data : []);
+      } catch (err) {
+        console.error("Error fetching cart:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      const data = await res.json();
-      setCartItems(data);
+    if (user && token) fetchCart();
+  }, [user, token]);
+
+  const handleRemove = async (item) => {
+    const confirm = await Swal.fire({
+      title: 'Cancel Purchase?',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, cancel',
+    });
+    if (!confirm.isConfirmed) return;
+
+    try {
+      const res = await fetch(`https://bulk-cartel-server.vercel.app/cart/${item._id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const result = await res.json();
+
+      if (result.success) {
+        setCartItems(prev => prev.filter(i => i._id !== item._id));
+
+        await fetch(
+          `https://bulk-cartel-server.vercel.app/products/decrement/${item.productId}`,
+          {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ quantity: -item.quantity }),
+          }
+        );
+
+        Swal.fire('Removed', 'Purchase cancelled', 'success');
+      } else {
+        Swal.fire('Error', 'Failed to cancel', 'error');
+      }
     } catch (err) {
-      console.error("Error fetching cart:", err);
-    } finally {
-      setLoading(false);
+      console.error(err);
+      Swal.fire('Error', 'Something went wrong', 'error');
     }
   };
 
-  if (user && token) fetchCart();
-}, [user, token]);
-
-  // Remove from cart
-  const handleRemove = async (item) => {
-  const confirm = await Swal.fire({
-    title: 'Cancel Purchase?',
-    showCancelButton: true,
-    confirmButtonText: 'Yes, cancel',
-  });
-  if (!confirm.isConfirmed) return;
-
-  try {
-    const res = await fetch(`https://bulk-cartel-server.vercel.app/cart/${item._id}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    const result = await res.json();
-    if (result.success) {
-      setCartItems(prev => prev.filter(i => i._id !== item._id));
-
-      await fetch(`https://bulk-cartel-server.vercel.app/products/decrement/${item.productId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ quantity: -item.quantity }),
-      });
-
-      Swal.fire('Removed', 'Purchase cancelled', 'success');
-    } else {
-      Swal.fire('Error', 'Failed to cancel', 'error');
-    }
-  } catch (err) {
-    console.error(err);
-    Swal.fire('Error', 'Something went wrong', 'error');
-  }
-};
-  if (loading) return <Spinner message="Loading product..." />;
+  if (loading) return <Spinner message="Loading cart..." />;
 
     return (
           <>

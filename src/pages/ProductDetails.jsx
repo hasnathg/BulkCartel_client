@@ -8,57 +8,55 @@ import Spinner from '../components/Spinner';
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const { user,token } = useContext(AuthContext);
+  const { user, token } = useContext(AuthContext);
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-  if (!token) return; // wait until token is available
+    if (!token) return;
 
-  fetch(`https://bulk-cartel-server.vercel.app/products/${id}`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
-    .then(res => res.json())
-    .then(data => {
-      setProduct(data);
-      setLoading(false); 
+    fetch(`https://bulk-cartel-server.vercel.app/products/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
     })
-    .catch(error => {
-      console.error("Error fetching product:", error);
-      setLoading(false);
-    });
-}, [id, token]);
-if (loading) return <Spinner message="Loading product..." />;
+      .then(res => res.json())
+      .then(data => {
+        setProduct(data);
+        setQuantity(data?.minimum_selling_quantity || 1);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Error fetching product:", err);
+        setLoading(false);
+      });
+  }, [id, token]);
+
+  if (loading) return <Spinner message="Loading product..." />;
+  if (!product) return <div>Product not found.</div>;
 
   const handleBuy = async () => {
     if (quantity < product.minimum_selling_quantity) {
-      Swal.fire("Error", `Minimum order quantity is ${product.minimum_selling_quantity}`, "error");
-      return;
+      return Swal.fire("Error", `Minimum order quantity is ${product.minimum_selling_quantity}`, "error");
     }
 
     const res = await fetch(`https://bulk-cartel-server.vercel.app/products/decrement/${id}`, {
-  method: "PATCH",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`
-  },
-  body: JSON.stringify({ quantity }),
-});
-
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ quantity }),
+    });
     const result = await res.json();
 
     if (result.success) {
-      
       const cartRes = await fetch("https://bulk-cartel-server.vercel.app/cart", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`
-  },
-  body: JSON.stringify({
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
           userEmail: user.email,
           productId: product._id,
           quantity,
@@ -71,9 +69,7 @@ if (loading) return <Spinner message="Loading product..." />;
           minimum_selling_quantity: product.minimum_selling_quantity,
         }),
       });
-
       const cartResult = await cartRes.json();
-
       if (cartResult.success) {
         Swal.fire("Success!", "Purchase completed and added to cart.", "success");
       } else {
@@ -84,7 +80,6 @@ if (loading) return <Spinner message="Loading product..." />;
     }
   };
 
-  if (!product) return <Spinner></Spinner>;
 
 
   return (

@@ -5,41 +5,38 @@ import Spinner from '../components/Spinner';
 import AuthContext from '../context/AuthContext';
 
 const AllProducts = () => {
-    const [products,setProducts] = useState([]);
-    const [displayedProducts,setDisplayedProducts] = useState([]);
-    const[filterActive,setFilterActive] = useState(false);
-    const [viewMode, setViewMode] = useState("card");
-    const [loading, setLoading] = useState(true);
-    const {token} = useContext(AuthContext);
+  const [products, setProducts] = useState([]);
+  const [displayedProducts, setDisplayedProducts] = useState([]);
+  const [filterActive, setFilterActive] = useState(false);
+  const [viewMode, setViewMode] = useState("card");
+  const [loading, setLoading] = useState(true);
+  const { token } = useContext(AuthContext);
 
-    useEffect(() => {
-  const token = localStorage.getItem('bulkCartelToken');
-
-  fetch("https://bulk-cartel-server.vercel.app/products", {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
-    .then(res => res.json())
-    .then(data => {
-      // Make sure data is an array before setting
-      if (Array.isArray(data)) {
-        setProducts(data);
-        setDisplayedProducts(data);
-      } else {
-        console.error("Unexpected data:", data);
-        setProducts([]);
-        setDisplayedProducts([]);
-      }
-      setLoading(false);
+  useEffect(() => {
+    fetch("https://bulk-cartel-server.vercel.app/products", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
-    .catch(err => {
-      console.error("Error loading products:", err);
-      setLoading(false);
-    });
-}, []);
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          setProducts(data);
+          setDisplayedProducts(data);
+        } else {
+          console.error("Unexpected data:", data);
+          setProducts([]);
+          setDisplayedProducts([]);
+        }
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Error loading products:", err);
+        setLoading(false);
+      });
+  }, [token]);
 
-    const handleFilterToggle = () => {
+  const handleFilterToggle = () => {
     const filtered = filterActive
       ? products
       : products.filter(p => p.minimum_selling_quantity > 100);
@@ -48,10 +45,10 @@ const AllProducts = () => {
     setDisplayedProducts(filtered);
   };
 
-  const handleViewChange = (e) => {
-    setViewMode(e.target.value);
-  };
-  if (loading) return <Spinner  message="Loading all products..." />;
+  const handleViewChange = (e) => setViewMode(e.target.value);
+
+  if (loading) return <Spinner message="Loading all products..." />;
+
 
 
     return (
