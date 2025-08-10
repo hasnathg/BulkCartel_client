@@ -7,6 +7,16 @@ import { RouterProvider } from 'react-router'
 import AuthProvider from './context/AuthProvider.jsx'
 import { HelmetProvider } from 'react-helmet-async'
 
+(() => {
+  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+  const apply = (isDark) => {
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'bulkcartel');
+  };
+  apply(mq.matches);
+  // live update on system theme change
+  mq.addEventListener?.('change', (e) => apply(e.matches));
+})();
+
 
 createRoot(document.getElementById('root')).render(
   
