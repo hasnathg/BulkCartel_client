@@ -23,46 +23,45 @@ const item = {
 
 export default function TrustedPartners() {
   return (
-    <section className="w-full bg-base-200">
-      <div className="w-full max-w-screen-xl mx-auto px-4 md:px-6 py-12">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-extrabold">Trusted Partners</h2>
-          <p className="mt-2 opacity-70">
-            We collaborate with leading global manufacturers and distributors.
-          </p>
-        </div>
-
-        <motion.div
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 items-stretch justify-items-center"
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          {partners.map(({ name, logo }, i) => (
-            <motion.div
-              key={i}
-              variants={item}
-              className="group bg-base-100 border rounded-2xl shadow-sm hover:shadow-md transition p-4 w-full max-w-[160px] aspect-square flex items-center justify-center"
-              title={name}
-            >
-              <img
-                src={logo}
-                alt={name}
-                className="max-h-12 md:max-h-14 object-contain grayscale group-hover:grayscale-0 opacity-80 group-hover:opacity-100 transition"
-                loading="lazy"
-              />
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* CTA (optional) */}
-        <div className="mt-10 flex justify-center">
-          <Link to="/register" className="btn btn-outline">
-            Become a Supplier
-          </Link>
-        </div>
+     <section className="w-full">
+    <div className="w-full max-w-screen-xl mx-auto px-4 md:px-6 py-12 text-base-content">
+      <div className="text-center mb-8">
+        <h2 className="text-3xl md:text-4xl font-extrabold">Trusted Partners</h2>
+        <p className="mt-2 opacity-70">
+          We collaborate with leading global manufacturers and distributors.
+        </p>
       </div>
-    </section>
+
+      <motion.div
+        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 items-stretch justify-items-center"
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        {partners.map(({ name, logo }, i) => (
+          <motion.div
+            key={i}
+            variants={item}
+            className="group bg-base-100 border rounded-2xl shadow-sm hover:shadow-md transition p-4 w-full max-w-[160px] aspect-square flex items-center justify-center"
+            title={name}
+          >
+            <img
+              src={logo}
+              alt={name}
+              className="max-h-12 md:max-h-14 object-contain grayscale group-hover:grayscale-0 opacity-80 group-hover:opacity-100 transition"
+              loading="lazy"
+            />
+          </motion.div>
+        ))}
+      </motion.div>
+
+      <div className="mt-10 flex justify-center">
+        <Link to="/register" className="btn btn-outline">
+          Become a Supplier
+        </Link>
+      </div>
+    </div>
+  </section>
   );
 }
