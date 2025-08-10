@@ -6,6 +6,7 @@ import HowItWorks from '../components/HowItWorks';
 import TrustedPartners from '../components/TrustedPartners';
 import Newsletter from '../components/Newsletter';
 import Spinner from '../components/Spinner';
+import PrimeProduct from '../components/PrimeProduct';
 
 
 const Home = () => {
@@ -26,6 +27,7 @@ const Home = () => {
         <div>
           <Banner></Banner>
           <Categories></Categories>
+          <PrimeProduct />
           <HowItWorks></HowItWorks>
           <TrustedPartners></TrustedPartners>
           <Newsletter></Newsletter>
