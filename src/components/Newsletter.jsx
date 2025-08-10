@@ -1,71 +1,81 @@
-import React, { useState } from 'react';
-import { Mail,Briefcase } from 'lucide-react';
+import React, { useState } from "react";
+import { Mail, Briefcase } from "lucide-react";
+import { Link } from "react-router";
 
-const Newsletter = () => {
-    const [email, setEmail] = useState('');
-      const [submitted, setSubmitted] = useState(false);
-    
-      const handleSubscribe = (e) => {
-        e.preventDefault();
-        if (email.trim()) {
-          setSubmitted(true);
-          setTimeout(() => {
-            setSubmitted(false);
-            setEmail('');
-          }, 3000);
-        }
-      };
-    return (
-    
+export default function Newsletter() {
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    setSubmitted(true);
+    setTimeout(() => {
+      setSubmitted(false);
+      setEmail("");
+    }, 3000);
+  };
+
+  return (
     <section
-      className="relative w-full max-w-screen-xl mx-auto px-4 md:px-6 py-12 bg-cover bg-center min-h-[550px] sm:min-h-[600px] flex items-center justify-center text-white"
+      className="relative w-full bg-cover bg-center"
       style={{
         backgroundImage:
           'url("https://images.unsplash.com/photo-1556761175-4b46a572b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80")',
       }}
     >
-     
-      <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40"></div>
+      {/* DARK overlay so the image doesn't wash out */}
+      <div className="absolute inset-0 bg-black/55 mix-blend-multiply" />
 
-      <div className="relative max-w-3xl mx-auto px-6 text-center">
-        <Mail className="mx-auto text-green-400 w-10 h-10 mb-4" />
-        <h2 className="text-4xl sm:text-5xl font-bold mb-3 leading-tight">
-          Join Our Business Community
-        </h2>
-        <p className="mb-6 text-white/90 text-lg">
-          Get monthly updates, deals, and industry tips in your inbox.
-        </p>
+      <div className="relative w-full max-w-screen-xl mx-auto px-4 md:px-6 py-12">
+        <div className="min-h-[360px] sm:min-h-[420px] grid place-items-center">
+          <div className="max-w-3xl w-full text-center">
+            <Mail className="mx-auto w-10 h-10 mb-3 text-accent" />
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
+              Join Our Business Community
+            </h2>
+            <p className="mt-2 text-white/90">
+              Get monthly updates, bulk deals, and procurement tips in your inbox.
+            </p>
 
-        {/* Form */}
-        <form
-          onSubmit={handleSubscribe}
-          className="flex flex-col sm:flex-row justify-center items-center gap-4"
-        >
-          <input
-            type="email"
-            className="w-full sm:w-[280px] px-4 py-3 rounded-md border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <button
-            type="submit"
-            className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md transition-all font-medium"
-          >
-            Subscribe
-          </button>
-        </form>
+            <form
+              onSubmit={handleSubscribe}
+              className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3"
+            >
+              <input
+                type="email"
+                required
+                autoComplete="email"
+                aria-label="Email address"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="input input-bordered w-full sm:w-[300px] bg-base-100"
+              />
+              <button type="submit" className="btn btn-accent">
+                Subscribe
+              </button>
+            </form>
 
-        {/* Success Message */}
-        {submitted && (
-          <p className="mt-4 text-green-300 font-medium">
-            Thanks for subscribing! 🌿
-          </p>
-        )}
+            {submitted && (
+              <p className="mt-3 text-green-300 font-medium" role="status" aria-live="polite">
+                Thanks for subscribing! 🌿
+              </p>
+            )}
+
+            <div className="mt-6 flex items-center justify-center gap-2">
+              <Briefcase className="w-4 h-4 text-white/90" />
+              <p className="text-white/90 text-sm">
+                Are you a supplier?{" "}
+                <Link to="/register" className="underline underline-offset-4">
+                  List your products with BulkCartel
+                </Link>
+                .
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
-    );
-};
-
-export default Newsletter;
+  );
+}

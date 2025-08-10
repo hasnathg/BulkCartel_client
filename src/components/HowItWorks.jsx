@@ -1,69 +1,85 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
 
 const steps = [
   {
-    icon: '🏢',
-    title: 'Bulk Sourcing Made Easy',
-    description: 'Connect with verified wholesalers and manufacturers worldwide.'
+    icon: "🏢",
+    title: "Bulk Sourcing",
+    description:
+      "Browse verified manufacturers and distributors across multiple categories.",
   },
   {
-    icon: '🔐',
-    title: 'Secure Payments',
-    description: 'Safe, secure payment gateways with buyer protection.'
+    icon: "🔐",
+    title: "Secure Checkout",
+    description:
+      "Clear MOQs, transparent pricing, and protected payments for peace of mind.",
   },
   {
-    icon: '🚚',
-    title: 'Fast Delivery',
-    description: 'Integrated logistics ensuring on-time shipments.'
+    icon: "🚚",
+    title: "Logistics & Delivery",
+    description:
+      "Reliable shipping coordination with lead-time visibility and tracking.",
   },
   {
-    icon: '📈',
-    title: 'Grow Your Business',
-    description: 'Track orders and manage bulk purchases seamlessly.'
+    icon: "📈",
+    title: "Scale with Confidence",
+    description:
+      "Reorder quickly, manage volumes, and streamline procurement in one place.",
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.3 } }
+const container = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { staggerChildren: 0.15 } },
 };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
+const item = {
+  hidden: { opacity: 0, y: 12 },
+  show: { opacity: 1, y: 0 },
 };
 
 const HowItWorks = () => {
-    return (
-    <section className="w-full max-w-screen-xl mx-auto px-4 md:px-6 bg-gradient-to-b from-green-50 to-white py-12">
-      <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-4xl font-extrabold text-center text-green-900 mb-12">
-          How It Works
-        </h2>
+  return (
+    <section className="w-full bg-base-200">
+      <div className="w-full max-w-screen-xl mx-auto px-4 md:px-6 py-12">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl md:text-4xl font-extrabold">How It Works</h2>
+          <p className="mt-2 opacity-70">
+            From discovery to delivery — designed for real wholesale volumes.
+          </p>
+        </div>
 
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10"
-          variants={containerVariants}
+          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 items-stretch"
+          variants={container}
           initial="hidden"
-          whileInView="visible"
+          whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {steps.map(({ icon, title, description }, index) => (
-            <motion.div
-              key={index}
-              className="bg-white/60 backdrop-blur-md border border-gray-200 rounded-xl shadow-md p-6 flex flex-col items-center text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2 min-h-[280px]"
-              variants={itemVariants}
+          {steps.map(({ icon, title, description }, i) => (
+            <motion.article
+              key={i}
+              variants={item}
+              className="bg-base-100 border rounded-2xl shadow-sm hover:shadow-md transition p-6 flex flex-col text-center h-full"
             >
-              <div className="text-6xl mb-4">{icon}</div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">{title}</h3>
-              <p className="text-gray-600 text-sm">{description}</p>
-            </motion.div>
+              <div className="text-5xl mb-3">{icon}</div>
+
+              {/* reserve consistent height so buttons/rows align across cards */}
+              <h3 className="text-lg font-semibold leading-tight line-clamp-1 min-h-[1.75rem]">
+                {title}
+              </h3>
+              <p className="text-sm opacity-80 mt-2 line-clamp-3 min-h-[3.25rem]">
+                {description}
+              </p>
+
+              {/* spacer keeps heights equal; add future CTA here if needed */}
+              <div className="mt-auto pt-2" />
+            </motion.article>
           ))}
         </motion.div>
       </div>
     </section>
-    );
+  );
 };
 
 export default HowItWorks;
