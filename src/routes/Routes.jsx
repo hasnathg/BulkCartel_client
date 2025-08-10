@@ -13,6 +13,7 @@ import MyProducts from '../pages/MyProducts';
 import Cart from '../pages/Cart';
 import ProductDetails from '../pages/ProductDetails';
 import UpdateProduct from '../pages/UpdateProduct';
+import About from '../pages/About';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
         {path: "/register",
             element: <Register></Register>
         },
+        { path: "/about", element: <About /> },
         {path: "/category/:name",
             element: <CategoryProducts></CategoryProducts>
         },
