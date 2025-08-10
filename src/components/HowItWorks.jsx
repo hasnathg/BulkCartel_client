@@ -36,7 +36,7 @@ const itemVariants = {
 
 const HowItWorks = () => {
     return (
-    <section className="bg-gradient-to-b from-green-50 to-white py-20">
+    <section className="w-full max-w-screen-xl mx-auto px-4 md:px-6 bg-gradient-to-b from-green-50 to-white py-12">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-4xl font-extrabold text-center text-green-900 mb-12">
           How It Works

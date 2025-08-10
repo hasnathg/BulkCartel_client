@@ -13,7 +13,7 @@ const Categories = () => {
   }, []);
 
   return (
-    <section className="max-w-[90%] mx-auto px-4 py-12">
+    <section className="w-full max-w-screen-xl mx-auto px-4 md:px-6 px-4 py-12">
       <div className="text-center mb-10">
         <h2 className="text-3xl md:text-4xl font-extrabold text-gray-800">
           Explore Bulk Cartel

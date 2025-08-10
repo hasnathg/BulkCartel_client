@@ -1,2 +1,50 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+/* LIGHT THEME (bulkcartel) */
+:root[data-theme="bulkcartel"] {
+  /* brand */
+  --p: 222 47% 13%;  /* #0F172A – primary (your dark slate) */
+  --pc: 0 0% 100%;   /* white on primary */
+
+  /* optional: secondary/accent */
+  --s: 221 83% 53%;  /* #2563EB – only used if you call 'secondary' */
+  --sc: 0 0% 100%;
+
+  --a: 38 92% 50%;   /* #F59E0B */
+  --ac: 222 47% 13%;
+
+  /* base (surfaces & text) */
+  --b1: 0 0% 100%;   /* base-100: card/nav surfaces (white) */
+  --b2: 220 14% 96%; /* base-200: page background */
+  --b3: 220 9% 90%;
+  --bc: 222 47% 11%; /* base-content: text color */
+
+  /* feedbacks (info/success/warning/error) */
+  --in: 199 92% 60%;
+  --su: 142 71% 45%;
+  --wa: 38 92% 50%;
+  --er: 0 85% 59%;
+}
+
+/* (Optional) DARK THEME if you ever enable it later */
+:root[data-theme="bulkcartel-dark"] {
+  --p: 222 47% 13%;
+  --pc: 0 0% 100%;
+
+  --s: 221 83% 53%;
+  --sc: 0 0% 100%;
+
+  --a: 38 92% 50%;
+  --ac: 220 64% 8%;
+
+  --b1: 222 47% 11%;
+  --b2: 220 64% 8%;
+  --b3: 220 78% 5%;
+  --bc: 220 14% 94%;
+
+  --in: 199 92% 60%;
+  --su: 142 71% 45%;
+  --wa: 38 92% 50%;
+  --er: 0 85% 59%;
+}

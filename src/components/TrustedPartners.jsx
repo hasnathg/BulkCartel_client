@@ -22,8 +22,8 @@ const TrustedPartners = () => {
     return (
 
 
-    <section className="relative bg-gradient-to-br from-slate-100 via-blue-50 to-white
- py-20 -mt-10 z-10 overflow-hidden">
+    <section className="relative w-full max-w-screen-xl mx-auto px-4 md:px-6 bg-gradient-to-br from-slate-100 via-blue-50 to-white
+ py-12 -mt-10 z-10 overflow-hidden">
  
   <div className="absolute top-0 left-0 w-full overflow-hidden leading-[0] z-[-1]">
     <svg className="relative block w-[calc(100%+1.3px)] h-20" viewBox="0 0 1440 100" preserveAspectRatio="none">

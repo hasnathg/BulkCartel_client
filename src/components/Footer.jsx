@@ -4,7 +4,7 @@ import logo from "../assets/logo.JPG";
 const Footer = () => {
   return (
   
-    <footer className="bg-gradient-to-tr from-green-50 to-green-100 text-gray-800 py-12 px-6 mt-20 border-t border-gray-300 font-semibold">
+    <footer className="w-full max-w-screen-xl mx-auto px-4 md:px-6 bg-gradient-to-tr from-green-50 to-green-100 text-gray-800 py-12 mt-20 border-t border-gray-300 font-semibold">
      
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-10 px-4 sm:px-8 md:px-12 lg:px-20 xl:px-28 2xl:px-40">
         
