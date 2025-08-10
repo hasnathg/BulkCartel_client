@@ -99,7 +99,7 @@ const AllProducts = () => {
                 <p>Min Order Qty: {product.minimum_selling_quantity}</p>
 
                 <div className="card-actions justify-end">
-                  <Link to={`/update/${product._id}`} className="btn btn-sm btn-primary">
+                  <Link to={`/update/${product._id}`} className="btn btn-sm w-24 border-0 bg-gray-800 hover:bg-gray-900 text-white">
                     Update
                   </Link>
                 </div>
@@ -135,7 +135,7 @@ const AllProducts = () => {
                   <td>{product.available_quantity}</td>
                   <td>{product.minimum_selling_quantity}</td>
                   <td>
-                    <Link to={`/update/${product._id}`} className="btn btn-xs btn-primary">
+                    <Link to={`/update/${product._id}`} className="btn btn-sm w-24 border-0 bg-gray-800 hover:bg-gray-900 text-white">
                       Update
                     </Link>
                   </td>

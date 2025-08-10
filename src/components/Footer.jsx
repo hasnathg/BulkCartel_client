@@ -5,7 +5,7 @@ import logo from "../assets/logo.JPG";
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-base-200 text-base-content mt-20">
+    <footer className="w-full max-w-screen-xl mx-auto px-4 md:px-6 px-4 py-12">
       <div className="w-full max-w-screen-xl mx-auto px-4 md:px-6 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
 

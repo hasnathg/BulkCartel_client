@@ -18,7 +18,7 @@ export default function Newsletter() {
 
   return (
     <section
-      className="relative w-full bg-cover bg-center"
+      className="relative w-full max-w-screen-xl mx-auto px-4 md:px-6 px-4 py-12 bg-cover bg-center"
       style={{
         backgroundImage:
           'url("https://images.unsplash.com/photo-1556761175-4b46a572b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80")',
