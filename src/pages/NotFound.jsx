@@ -20,7 +20,7 @@ const NotFound = () => {
           Looks like the bulk deal you're searching for doesn’t exist.
         </p>
         
-        <Link to="/" className="inline-block bg-blue-600 text-white px-6 py-3 rounded-md text-lg hover:bg-blue-700 transition duration-300">
+        <Link to="/" className="inline-block border-0 bg-gray-800 hover:bg-gray-900 text-white bg-blue-600 text-white px-6 py-3 rounded-md text-lg hover:bg-blue-700 transition duration-300">
           Back to Home
         </Link>
       </div>

@@ -73,7 +73,7 @@ const MyProducts = () => {
                   <div className="flex flex-col gap-2">
                     <button
                       onClick={() => nav(`/update/${p._id}`)}
-                      className="btn btn-sm btn-primary"
+                      className="btn btn-sm w-full border-0 bg-gray-800 hover:bg-gray-900 text-white"
                     >
                       Update
                     </button>

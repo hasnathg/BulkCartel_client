@@ -54,7 +54,7 @@ export default function Navbar() {
         <div className="grid grid-cols-3 items-center h-16">
           {/* LEFT: mobile menu + logo */}
           <div className="flex items-center gap-3">
-            {/* Mobile menu (all links live here on small screens) */}
+            {/* Mobile menu  */}
             <div className="dropdown lg:hidden">
               <label tabIndex={0} className="btn btn-ghost">Menu</label>
               <ul
@@ -95,12 +95,12 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* CENTER: public links (desktop only) */}
+          {/* CENTER:  */}
           <div className="hidden lg:flex justify-center">
             <ul className="menu menu-horizontal gap-3">{publicLinks}</ul>
           </div>
 
-          {/* RIGHT: auth (desktop only) */}
+          {/* RIGHT:*/}
           <div className="hidden md:flex justify-end items-center gap-2">
             {!user ? (
               <div className="flex gap-2">

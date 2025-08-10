@@ -76,7 +76,7 @@ const PrimeProduct = () => {
       {p.description}
     </p>
 
-    {/* Meta rows centered */}
+    
     <div className="mt-3 flex items-center justify-center gap-3">
       <span className="badge badge-ghost">{p._categoryName || p.category}</span>
       <span className="text-lg font-bold text-primary">${p.price}</span>
@@ -86,7 +86,7 @@ const PrimeProduct = () => {
       <Rating value={p.rating} edit={false} size={18} />
     </div>
 
-    {/* Actions pinned to bottom, equal width */}
+   
     <div className="mt-auto pt-4 grid grid-cols-2 gap-2">
       <Link
         to={`/category/${encodeURIComponent(p._categoryName || p.category)}`}

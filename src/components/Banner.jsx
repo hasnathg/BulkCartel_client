@@ -43,7 +43,7 @@ const Banner = () => {
               className="relative w-full h-[400px] md:h-[500px] bg-center bg-cover rounded-xl flex items-center justify-center"
               style={{ backgroundImage: `url(${slide.image})` }}
             >
-              <div className=" bg-opacity-50 p-8 rounded-lg text-center text-white max-w-lg mx-auto">
+              <div className=" bg-opacity-50 p-8 rounded-lg text-center text-gray-50 max-w-lg mx-auto">
                
                  <h2 className="text-4xl md:text-5xl font-bold mb-4">{slide.title}</h2>
              
